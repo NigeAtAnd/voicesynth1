@@ -17,6 +17,11 @@ function say() {
   utterance.voice = getVoiceByName(selectedVoice.getAttribute('data-name'));
   utterance.rate = rate;
   utterance.pitch = pitch;
+  utterance.onboundary = () => addEvent('onboundary'); // Dodgy
+  utterance.onend = () => addEvent('onend');
+  utterance.onstart = () => addEvent('onstart');
+  utterance.onmark = () => addEvent('onmark');
+  utterance.onerror = () => addEvent('onerror');
 
   window.speechSynthesis.speak(utterance);
 }
@@ -41,5 +46,16 @@ function loadVoices() {
   });
 }
 
+function addEvent(text) {
+  const eventsList = document.getElementById('events');
+  var time = new Date().toLocaleTimeString();
+  eventsList.value = `${time} ${text}\n${eventsList.value}`;
+}
+
+function voicesChanged() {
+  addEvent('voicesChanged');
+  loadVoices();
+}
+
 window.onload = loadVoices;
-speechSynthesis.onvoiceschanged = loadVoices;
+window.speechSynthesis.onvoiceschanged = voicesChanged;
