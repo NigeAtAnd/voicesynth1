@@ -7,12 +7,16 @@ function getVoiceByName(name) {
 function say() {
   const thingToSay = document.getElementById('speechinput').value;
   const selectedVoice = document.getElementById('voiceselect').selectedOptions[0];
+  const rate = document.getElementById('rate').value;
+  const pitch = document.getElementById('pitch').value;
 
   const utterance = new SpeechSynthesisUtterance(thingToSay);
 
   // Two ways of setting the voice!
   //utterance.lang = selectedVoice.getAttribute('data-lang');
   utterance.voice = getVoiceByName(selectedVoice.getAttribute('data-name'));
+  utterance.rate = rate;
+  utterance.pitch = pitch;
 
   window.speechSynthesis.speak(utterance);
 }
