@@ -17,10 +17,10 @@ function say() {
   utterance.voice = getVoiceByName(selectedVoice.getAttribute('data-name'));
   utterance.rate = rate;
   utterance.pitch = pitch;
-  utterance.onboundary = () => addEvent('onboundary'); // Dodgy
+  utterance.onboundary = () => addEvent('onboundary'); // onboundary is dodgy.
   utterance.onend = () => addEvent('onend');
   utterance.onstart = () => addEvent('onstart');
-  utterance.onmark = () => addEvent('onmark');
+  utterance.onmark = () => addEvent('onmark'); // onmark is dodgy.
   utterance.onerror = () => addEvent('onerror');
 
   window.speechSynthesis.speak(utterance);
